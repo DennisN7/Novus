@@ -7,7 +7,7 @@ import uvicorn
 app = FastAPI()
 
 # Allow frontend requests
-origins = ["*"]  # Change to your frontend URL in production
+origins = ["https://novusolutions.netlify.app/"]  # Change to your frontend URL in production
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -16,6 +16,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Define root route
+@app.get("/")
+def home():
+    return {"message": "Welcome to Novu Solutions API!"}
+
+# Include authentication router
 app.include_router(auth_router, prefix="/auth")
 
 if __name__ == "__main__":
